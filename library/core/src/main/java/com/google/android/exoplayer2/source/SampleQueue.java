@@ -438,7 +438,7 @@ public final class SampleQueue implements TrackOutput {
     while (remaining > 0) {
       int toCopy = Math.min(remaining, (int) (readAllocationNode.endPosition - absolutePosition));
       Allocation allocation = readAllocationNode.allocation;
-      target.put(allocation.data, readAllocationNode.translateOffset(absolutePosition), toCopy);
+      target.put(allocation.data, Math.max(0, readAllocationNode.translateOffset(absolutePosition)), toCopy);
       remaining -= toCopy;
       absolutePosition += toCopy;
       if (absolutePosition == readAllocationNode.endPosition) {
