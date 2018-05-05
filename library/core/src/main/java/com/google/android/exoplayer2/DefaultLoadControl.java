@@ -32,25 +32,25 @@ public class DefaultLoadControl implements LoadControl {
    * The default minimum duration of media that the player will attempt to ensure is buffered at all
    * times, in milliseconds.
    */
-  public static final int DEFAULT_MIN_BUFFER_MS = 15000;
+  public static final int DEFAULT_MIN_BUFFER_MS = 0; //15000;
 
   /**
    * The default maximum duration of media that the player will attempt to buffer, in milliseconds.
    */
-  public static final int DEFAULT_MAX_BUFFER_MS = 50000;
+  public static final int DEFAULT_MAX_BUFFER_MS = 0; //50000;
 
   /**
    * The default duration of media that must be buffered for playback to start or resume following a
    * user action such as a seek, in milliseconds.
    */
-  public static final int DEFAULT_BUFFER_FOR_PLAYBACK_MS = 2500;
+  public static final int DEFAULT_BUFFER_FOR_PLAYBACK_MS = 0; //2500;
 
   /**
    * The default duration of media that must be buffered for playback to resume after a rebuffer,
    * in milliseconds. A rebuffer is defined to be caused by buffer depletion rather than a user
    * action.
    */
-  public static final int DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS  = 5000;
+  public static final int DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS  = 0; //5000;
 
   /**
    * The default target buffer size in bytes. When set to {@link C#LENGTH_UNSET}, the load control
