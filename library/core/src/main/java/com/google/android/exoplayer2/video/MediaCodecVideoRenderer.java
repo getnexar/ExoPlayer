@@ -494,6 +494,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
   @CallSuper
   @Override
   protected void onQueueInputBuffer(DecoderInputBuffer buffer) {
+    decodeTimestamp.put(buffer.timeUs, System.currentTimeMillis());
     buffersInCodecCount++;
     if (Util.SDK_INT < 23 && tunneling) {
       maybeNotifyRenderedFirstFrame();
@@ -638,6 +639,9 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
   @CallSuper
   @Override
   protected void onProcessedOutputBuffer(long presentationTimeUs) {
+    if (decodeTimestamp.containsKey(presentationTimeUs)) {
+      System.out.println("DDD presentation took " + (System.currentTimeMillis() - decodeTimestamp.get(presentationTimeUs)));
+    }
     buffersInCodecCount--;
   }
 
@@ -956,6 +960,16 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
     mediaFormat.setString(MediaFormat.KEY_MIME, format.sampleMimeType);
     mediaFormat.setInteger(MediaFormat.KEY_WIDTH, format.width);
     mediaFormat.setInteger(MediaFormat.KEY_HEIGHT, format.height);
+
+    // DDD hotfix -- force h264 level is to be 31
+    if (format.initializationData.size() >= 1) {
+
+      // level id
+      if (format.initializationData.get(0)[7] > 31) {
+        format.initializationData.get(0)[7] = 31;
+      }
+    }
+
     MediaFormatUtil.setCsdBuffers(mediaFormat, format.initializationData);
     // Set format parameters that may be unset.
     MediaFormatUtil.maybeSetFloat(mediaFormat, MediaFormat.KEY_FRAME_RATE, format.frameRate);

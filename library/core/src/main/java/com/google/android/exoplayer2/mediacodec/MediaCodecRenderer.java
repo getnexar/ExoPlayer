@@ -48,6 +48,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * An abstract renderer that uses {@link MediaCodec} to decode samples for rendering.
@@ -256,6 +258,10 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
   private boolean waitingForFirstSyncFrame;
 
   protected DecoderCounters decoderCounters;
+
+
+  // DDD measure decoder latency
+  protected Map<Long, Long> decodeTimestamp = new ConcurrentHashMap<>();
 
   /**
    * @param trackType The track type that the renderer handles. One of the {@code C.TRACK_TYPE_*}
