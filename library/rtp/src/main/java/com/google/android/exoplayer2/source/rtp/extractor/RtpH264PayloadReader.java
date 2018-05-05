@@ -209,10 +209,15 @@ import java.util.List;
         }
 
         if (hasOutputFormat) {
-            nalStartCode.setPosition(0);
-            output.sampleData(nalStartCode, nalStartCode.limit());
-            output.sampleData(packet, limit);
 
+            //TODO:DDD not the right wat to do it obviously
+            // SPS contains the profile data + level id (for Halocam: Main + 51 (too high))
+            // just as a POC we don't allow these packets to get to the decoder
+            if (nalUnitType != 7 && nalUnitType != 8) {
+                nalStartCode.setPosition(0);
+                output.sampleData(nalStartCode, nalStartCode.limit());
+                output.sampleData(packet, limit);
+            }
             sampleLength += limit + nalStartCode.limit();
 
         } else {
