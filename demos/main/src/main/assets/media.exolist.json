@@ -3,8 +3,8 @@
     "name": "RTSP Streams",
     "samples": [
       {
-        "name": "Live stream TV from HDIPCam IP Camera",
-        "uri": "rtsp://80.28.249.45:8114/rtsph2641080p"
+        "name": "Halocam after auth",
+        "uri": "rtsp://192.168.49.1:554/live"
       },
       {
         "name": "Live stream TV from Hessdalen - Camera 2",
